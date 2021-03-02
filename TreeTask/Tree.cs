@@ -5,9 +5,14 @@ using System.Text;
 
 namespace TreeTask
 {
-    class Tree<T> : ITree<T>, IEnumerator<T>
+    class Tree<T> : ITree<T>, IEnumerator<T> where T: IComparable
     {
-        public Node<T> Root;
+        public Node<T> root;
+
+        public Tree()
+        {
+            root = null;
+        }
 
         public T Current => throw new NotImplementedException();
 
@@ -30,7 +35,36 @@ namespace TreeTask
 
         void ITree<T>.Add(T value)
         {
-            throw new NotImplementedException();
+            Node<T> newItem = new Node<T>(value);
+            if (root == null)
+            {
+                root = newItem;
+            }
+            else
+            {
+                Node<T> current = root;
+                Node<T> parent = null;
+                while (current != null)
+                {
+                    parent = current
+                    if (value.CompareTo(current.value) >= 0)
+                    {
+                        current = current.left;
+                        if (current == null)
+                        {
+                            parent.left = newItem;
+                        }
+                    }
+                    else
+                    {
+                        current = current.right;
+                        if (current == null)
+                        {
+                            parent.right = newItem;
+                        }
+                    }
+                }
+            }
         }
 
         bool ITree<T>.Contains(T value)
